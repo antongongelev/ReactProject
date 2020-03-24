@@ -1,0 +1,15 @@
+button {
+  border-radius: 20px;
+  border: 2px solid;
+  background-color: rgb(118, 255, 83);
+  margin-left: 5px;
+}
+
+input {
+  border: 2px solid;
+  background-color: rgb(118, 255, 83);
+}
+
+.newPost{
+  padding-bottom: 15px;
+}

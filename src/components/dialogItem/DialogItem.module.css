@@ -1,0 +1,8 @@
+.active {
+  color:rgb(86, 150, 150) !important;
+}
+
+.dialogItem a{
+  text-decoration: none;
+  color: black;
+}

@@ -1,0 +1,15 @@
+.navbar {
+  grid-area: n;
+  background-color: rgb(195, 255, 98);
+  padding: 15px;
+  height: 80vh;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: rgb(0, 0, 0)
+}
+
+.active {
+    color:rgb(86, 150, 150) !important;
+}
