@@ -2,25 +2,33 @@ import React from "react";
 import Post from "./../post/Post";
 import s from "./Posts.module.css";
 
-const Posts = () => {
-  let posts = [
-    {
-      msg: "Hi! I'm ninja warior!",
-      likes: "1"
-    },
-    {
-      msg: "I'm here for revenge",
-      likes: "1"
-    }
-  ]
+const Posts = props => {
+  let state = props.postsPage;
 
-let postItems = posts.map(p => <Post msg={p.msg} likes={p.likes}/>)
+  let postItems = state.posts.map(p => (
+    <Post key={p.id} msg={p.msg} likes={p.likes} />
+  ));
+
+  let newPostMessage = state.newPostMessage;
+
+  let newPostMessageChange = e => {
+    let body = e.target.value;
+    props.updateNewPostMessage(body);
+  };
+
+  let createNewPost = () => {
+    props.createNewPost();
+  };
 
   return (
     <div>
       <div className={s.newPost}>
-        <input placeholder="Add new post"></input>
-        <button>Add</button>
+        <input
+          placeholder="Add new post"
+          value={newPostMessage}
+          onChange={newPostMessageChange}
+        ></input>
+        <button onClick={createNewPost}>Add</button>
       </div>
       {postItems}
     </div>

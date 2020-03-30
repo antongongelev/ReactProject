@@ -1,13 +1,14 @@
 import React from "react";
 import s from "./Profile.module.css";
-import Posts from "../posts/Posts";
+import PostsContainer from "../posts/PostsContainer";
 import ProfileInfo from "./../profile-info/ProfileInfo";
 
-const Profile = () => {
+const Profile = props => {
+  debugger;
   return (
     <div className={s.profile}>
       <ProfileInfo />
-      <Posts />
+      <PostsContainer />
     </div>
   );
 };

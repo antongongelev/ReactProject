@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Navbar.module.css";
-import {NavLink} from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -11,8 +11,13 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div>
-        <NavLink to="/dialogs" activeClassName={s.active} >
+        <NavLink to="/dialogs" activeClassName={s.active}>
           Messages
+        </NavLink>
+      </div>
+      <div>
+        <NavLink to="/users" activeClassName={s.active}>
+          Users
         </NavLink>
       </div>
     </div>

@@ -3,25 +3,44 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./../dialogItem/DialogItem";
 import MessageItem from "./../messageItem/MessageItem";
 
-const Dialogs = () => {
-  let dialogs = [
-    { id: "1", name: "Anton" },
-    { id: "2", name: "Elena" },
-    { id: "3", name: "Pufic" },
-    { id: "4", name: "Sasha" },
-    { id: "5", name: "Kirill" }
-  ];
+const Dialogs = props => {
+  let state = props.dialogsPage;
 
-  let messages = ["Hi", "Hello!", "Yo!"];
+  let onSendMessageClick = () => {
+    props.sendMessage();
+  };
 
-  let dialogItems = dialogs.map(d => <DialogItem id={d.id} name={d.name} />);
+  let onNewMessageChange = e => {
+    let body = e.target.value;
+    props.updateNewMessageBody(body);
+  };
 
-  let messageItems = messages.map(m => <MessageItem message={m} />);
+  let dialogItems = state.dialogs.map(d => (
+    <DialogItem id={d.id} key={d.id} name={d.name} />
+  ));
+
+  let messageItems = state.messages.map(m => (
+    <MessageItem message={m.msg} key={m.id} />
+  ));
+
+  let newMessageBody = state.newMessageBody;
 
   return (
     <div className={s.dialogs}>
       <div className={s.dialogItems}>{dialogItems}</div>
-      <dib className={s.messages}>{messageItems}</dib>
+      <div className={s.messages}>{messageItems}</div>
+      <div>
+        <div>
+          <textarea
+            value={newMessageBody}
+            onChange={onNewMessageChange}
+            placeholder="Enter your message"
+          ></textarea>
+        </div>
+        <div>
+          <button onClick={onSendMessageClick}>Send</button>
+        </div>
+      </div>
     </div>
   );
 };

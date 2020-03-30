@@ -4,9 +4,7 @@ import s from "./ProfileInfo.module.css";
 const ProfileInfo = () => {
   return (
     <div className={s.profileInfo}>
-      <div>
-    
-      </div>
+      <div></div>
     </div>
   );
 };
