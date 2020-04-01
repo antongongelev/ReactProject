@@ -1,0 +1,12 @@
+img {
+  width: 100px;
+}
+
+.activePage {
+font-weight: bold;
+font-size: 20px;
+}
+
+span{
+  cursor: pointer;
+}

@@ -1,16 +1,20 @@
 import React from "react";
+import defaultPhoto from "../../assets/images/avatar.png";
+import s from "./Users.module.css";
 
 const Users = props => {
-  let users = props.usersPage.users;
-
   return (
-    <div>
-      {users.map(user => (
+    <div className={s}>
+      {props.usersPage.users.map(user => (
         <div key={user.id}>
-          <span>{user.firstName + " " + user.lastName}</span>
-          <div>age: {user.age}</div>
-          <div>sex: {user.sex}</div>
-          <div>location: {user.city + ", " + user.country}</div>
+          <div>
+            <img
+              src={user.photos.small ? user.photos.small : defaultPhoto}
+              alt=""
+            ></img>
+          </div>
+          <span>{user.name}</span>
+          <div>status: {user.status}</div>
           <div>
             <button onClick={() => props.switchFollow(user.id)}>
               {user.followed ? "Unfollow" : "Follow"}
@@ -21,5 +25,4 @@ const Users = props => {
     </div>
   );
 };
-
 export default Users;
