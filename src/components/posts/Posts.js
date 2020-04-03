@@ -3,13 +3,11 @@ import Post from "./../post/Post";
 import s from "./Posts.module.css";
 
 const Posts = props => {
-  let state = props.postsPage;
-
-  let postItems = state.posts.map(p => (
-    <Post key={p.id} msg={p.msg} likes={p.likes} />
+  let postItems = props.posts.map(p => (
+    <Post key={p.id} msg={p.msg} likes={p.likes} profile={props.profile} />
   ));
 
-  let newPostMessage = state.newPostMessage;
+  let newPostMessage = props.newPostMessage;
 
   let newPostMessageChange = e => {
     let body = e.target.value;

@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../header/Header";
 import Navbar from "../navbar/Navbar";
-import Profile from "../profile/Profile";
+import ProfileContainer from "../profile/ProfileContainer";
 import s from "./Main.module.css";
 import { Route } from "react-router-dom";
 import DialogsContainer from "../dialogs/DialogsContainer";
@@ -13,7 +13,7 @@ const Main = () => {
       <Header />
       <Navbar />
       <div className={s.main}>
-        <Route render={() => <Profile />} path="/profile" />
+        <Route render={() => <ProfileContainer />} path="/profile/:userId" />
         <Route render={() => <DialogsContainer />} path="/dialogs" />
         <Route render={() => <UsersContainer />} path="/users" />
       </div>

@@ -1,7 +1,29 @@
 const UPDATE_NEW_POST_MESSAGE = "UPDATE_NEW_POST_MESSAGE";
 const CREATE_NEW_POST = "CREATE_NEW_POST";
+const SET_PROFILE = "SET_PROFILE";
 
 let initialState = {
+  profile: {
+    aboutMe: "",
+    contacts: {
+      facebook: "",
+      website: "",
+      vk: "",
+      twitter: "",
+      instagram: "",
+      youtube: "",
+      github: "",
+      mainLink: ""
+    },
+    lookingForAJob: false,
+    lookingForAJobDescription: "",
+    fullName: "",
+    userId: 0,
+    photos: {
+      small: "",
+      large: ""
+    }
+  },
   posts: [
     {
       id: 0,
@@ -17,7 +39,7 @@ let initialState = {
   newPostMessage: ""
 };
 
-const postsReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_NEW_POST_MESSAGE:
       return { ...state, newPostMessage: action.body };
@@ -27,6 +49,11 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         newPostMessage: "",
         posts: [...state.posts, newPost]
+      };
+    case SET_PROFILE:
+      return {
+        ...state,
+        profile: action.profile
       };
     default:
       return state;
@@ -38,5 +65,6 @@ export const updateNewPostMessage = body => ({
   type: UPDATE_NEW_POST_MESSAGE,
   body: body
 });
+export const setProfile = profile => ({ type: SET_PROFILE, profile });
 
-export default postsReducer;
+export default profileReducer;

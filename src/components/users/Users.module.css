@@ -1,12 +1,7 @@
-img {
-  width: 100px;
+.users img{
+width: 100px;
 }
 
-.activePage {
-font-weight: bold;
-font-size: 20px;
-}
-
-span{
+button{
   cursor: pointer;
 }

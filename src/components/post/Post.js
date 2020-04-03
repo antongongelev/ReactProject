@@ -1,18 +1,21 @@
 import React from "react";
 import s from "./Post.module.css";
+import defaultPhoto from "../../assets/images/avatar.png";
 
-const Post = (props) => {
-
+const Post = props => {
   return (
     <div className={s.post}>
       <div>
         <img
-          src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/720/ninja-background-512.png"
+          src={
+            props.profile.photos.large
+              ? props.profile.photos.large
+              : defaultPhoto
+          }
           alt="avatar"
         />
         {props.msg}
-        <div>likes: {props.likes}
-        </div>
+        <div>likes: {props.likes}</div>
       </div>
     </div>
   );

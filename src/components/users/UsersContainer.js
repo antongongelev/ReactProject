@@ -17,7 +17,6 @@ class UsersContainer extends React.Component {
     return `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`;
   };
   setCurrentPage = page => {
-    debugger;
     console.log("you have selected page number " + page);
     axios
       .get(
@@ -31,7 +30,6 @@ class UsersContainer extends React.Component {
       });
   };
   componentDidMount() {
-    debugger;
     axios
       .get(
         this.getUsersUrl(
