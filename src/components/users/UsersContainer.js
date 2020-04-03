@@ -2,15 +2,17 @@ import { connect } from "react-redux";
 import React from "react";
 import * as axios from "axios";
 import Users from "./Users.js";
+import Preloader from "../tools/preloader/Preloader.js";
 import {
-  switchFollowAC,
-  setUsersAC,
-  setCurrentPageAC,
-  setTotalUsersCountAC
+  switchFollow,
+  setUsers,
+  setCurrentPage,
+  setTotalUsersCount,
+  switchIsLoading
 } from "../../reducers/users-reducer";
 import Paginator from "../tools/paginator/Paginator.js";
 
-class UsersApi extends React.Component {
+class UsersContainer extends React.Component {
   getUsersUrl = (page, count) => {
     return `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`;
   };
@@ -18,8 +20,12 @@ class UsersApi extends React.Component {
     debugger;
     console.log("you have selected page number " + page);
     axios
-      .get(this.getUsersUrl(page, this.props.usersPage.pageSize))
+      .get(
+        this.getUsersUrl(page, this.props.usersPage.pageSize),
+        this.props.switchIsLoading(true)
+      )
       .then(response => {
+        this.props.switchIsLoading(false);
         this.props.setCurrentPage(page);
         this.props.setUsers(response.data.items);
       });
@@ -31,9 +37,11 @@ class UsersApi extends React.Component {
         this.getUsersUrl(
           this.props.usersPage.currentPage,
           this.props.usersPage.pageSize
-        )
+        ),
+        this.props.switchIsLoading(true)
       )
       .then(response => {
+        this.props.switchIsLoading(false);
         this.props.setUsers(response.data.items);
         this.props.setTotalUsersCount(response.data.totalCount);
       });
@@ -53,11 +61,15 @@ class UsersApi extends React.Component {
           pages={pages}
           setCurrentPage={this.setCurrentPage}
         />
-        <Users
-          usersPage={this.props.usersPage}
-          setCurrentPage={this.setCurrentPage}
-          switchFollow={this.props.switchFollow}
-        />
+        {this.props.usersPage.isLoading ? (
+          <Preloader />
+        ) : (
+          <Users
+            usersPage={this.props.usersPage}
+            setCurrentPage={this.setCurrentPage}
+            switchFollow={this.props.switchFollow}
+          />
+        )}
       </div>
     );
   }
@@ -67,24 +79,10 @@ const mapStateToProps = state => {
   return { usersPage: state.usersPage };
 };
 
-const mapDispatchToProps = dispatch => {
-  debugger;
-  return {
-    switchFollow: userId => {
-      dispatch(switchFollowAC(userId));
-    },
-    setUsers: users => {
-      dispatch(setUsersAC(users));
-    },
-    setCurrentPage: page => {
-      dispatch(setCurrentPageAC(page));
-    },
-    setTotalUsersCount: usersCount => {
-      dispatch(setTotalUsersCountAC(usersCount));
-    }
-  };
-};
-
-const usersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApi);
-
-export default usersContainer;
+export default connect(mapStateToProps, {
+  switchFollow,
+  setUsers,
+  setCurrentPage,
+  setTotalUsersCount,
+  switchIsLoading
+})(UsersContainer);

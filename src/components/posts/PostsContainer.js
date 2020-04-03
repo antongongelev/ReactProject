@@ -1,25 +1,17 @@
 import { connect } from "react-redux";
 import Posts from "./Posts";
 import {
-  createNewPostCreator,
-  updateNewPostMessageCreator
+  createNewPost,
+  updateNewPostMessage
 } from "../../reducers/posts-reducer";
 
 let mapStateToProps = state => {
   return { postsPage: state.postsPage };
 };
 
-let mapDispatchToProps = dispatch => {
-  return {
-    createNewPost: () => {
-      dispatch(createNewPostCreator());
-    },
-    updateNewPostMessage: body => {
-      dispatch(updateNewPostMessageCreator(body));
-    }
-  };
-};
-
-const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts);
+const PostsContainer = connect(mapStateToProps, {
+  createNewPost,
+  updateNewPostMessage
+})(Posts);
 
 export default PostsContainer;

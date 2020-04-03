@@ -33,8 +33,8 @@ const postsReducer = (state = initialState, action) => {
   }
 };
 
-export const createNewPostCreator = () => ({ type: CREATE_NEW_POST });
-export const updateNewPostMessageCreator = body => ({
+export const createNewPost = () => ({ type: CREATE_NEW_POST });
+export const updateNewPostMessage = body => ({
   type: UPDATE_NEW_POST_MESSAGE,
   body: body
 });
