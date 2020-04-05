@@ -7,3 +7,11 @@
   max-height: 10vh;
   padding: 5px;
 }
+
+.header .login {
+float: right;
+}
+ 
+.header .login a{
+  color: black;
+}

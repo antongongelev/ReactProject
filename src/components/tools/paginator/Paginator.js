@@ -3,7 +3,6 @@ import React from "react";
 const Paginator = props => {
   let pages = props.pages;
   const switchPage = type => {
-    debugger;
     switch (type) {
       case "prev":
         let prevPage = pages[props.currentPage - 2];

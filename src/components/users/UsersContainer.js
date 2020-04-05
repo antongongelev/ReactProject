@@ -1,48 +1,23 @@
 import { connect } from "react-redux";
 import React from "react";
-import * as axios from "axios";
 import Users from "./Users.js";
 import Preloader from "../tools/preloader/Preloader.js";
 import {
-  switchFollow,
-  setUsers,
   setCurrentPage,
-  setTotalUsersCount,
-  switchIsLoading
+  getUsersThunk,
+  switchFollowThunk,
 } from "../../reducers/users-reducer";
 import Paginator from "../tools/paginator/Paginator.js";
 
 class UsersContainer extends React.Component {
-  getUsersUrl = (page, count) => {
-    return `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`;
-  };
-  setCurrentPage = page => {
-    console.log("you have selected page number " + page);
-    axios
-      .get(
-        this.getUsersUrl(page, this.props.usersPage.pageSize),
-        this.props.switchIsLoading(true)
-      )
-      .then(response => {
-        this.props.switchIsLoading(false);
-        this.props.setCurrentPage(page);
-        this.props.setUsers(response.data.items);
-      });
+  setCurrentPage = (page) => {
+    this.props.getUsersThunk(page, this.props.usersPage.pageSize);
   };
   componentDidMount() {
-    axios
-      .get(
-        this.getUsersUrl(
-          this.props.usersPage.currentPage,
-          this.props.usersPage.pageSize
-        ),
-        this.props.switchIsLoading(true)
-      )
-      .then(response => {
-        this.props.switchIsLoading(false);
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
-      });
+    this.props.getUsersThunk(
+      this.props.usersPage.currentPage,
+      this.props.usersPage.pageSize
+    );
   }
   render() {
     let pagesCount = Math.ceil(
@@ -65,7 +40,7 @@ class UsersContainer extends React.Component {
           <Users
             usersPage={this.props.usersPage}
             setCurrentPage={this.setCurrentPage}
-            switchFollow={this.props.switchFollow}
+            switchFollowThunk={this.props.switchFollowThunk}
           />
         )}
       </div>
@@ -73,14 +48,12 @@ class UsersContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { usersPage: state.usersPage };
 };
 
 export default connect(mapStateToProps, {
-  switchFollow,
-  setUsers,
   setCurrentPage,
-  setTotalUsersCount,
-  switchIsLoading
+  getUsersThunk,
+  switchFollowThunk,
 })(UsersContainer);

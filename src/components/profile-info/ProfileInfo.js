@@ -4,7 +4,6 @@ import defaultPhoto from "../../assets/images/avatar.png";
 import Preloader from "../tools/preloader/Preloader";
 
 const ProfileInfo = props => {
-  debugger;
   if (!props.profile.userId) {
     return <Preloader />;
   }
