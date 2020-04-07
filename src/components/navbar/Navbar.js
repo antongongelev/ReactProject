@@ -2,12 +2,12 @@ import React from "react";
 import s from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
     <div className={s.navbar}>
       <div>
-        <NavLink to="/profile" activeClassName={s.active}>
-          Profile
+        <NavLink to={"/profile/" + props.myId} activeClassName={s.active}>
+          My Profile
         </NavLink>
       </div>
       <div>

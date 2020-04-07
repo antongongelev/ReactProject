@@ -3,7 +3,7 @@ import { authorise } from "../rest-client";
 const SET_CREDENTIALS = "SET_CREDENTIALS";
 
 let initialState = {
-  id: "",
+  id: null,
   login: "",
   email: "",
   isAuthenticated: false,

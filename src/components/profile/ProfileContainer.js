@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
 import { getProfileThunk } from "../../reducers/profile-reducer";
+import { withAuthRedirect } from "../../hocs/withAuthRedirect";
 import {
   createNewPost,
   updateNewPostMessage,
@@ -10,6 +11,7 @@ import {
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
+    debugger;
     this.props.getProfileThunk(this.props.match.params.userId);
   }
 
@@ -26,4 +28,4 @@ export default connect(mapStateToProps, {
   createNewPost,
   updateNewPostMessage,
   getProfileThunk,
-})(withRouter(ProfileContainer));
+})(withRouter(withAuthRedirect(ProfileContainer)));

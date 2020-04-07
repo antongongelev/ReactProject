@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import React from "react";
 import Users from "./Users.js";
 import Preloader from "../tools/preloader/Preloader.js";
+import { withAuthRedirect } from "../../hocs/withAuthRedirect";
 import {
   setCurrentPage,
   getUsersThunk,
@@ -56,4 +57,4 @@ export default connect(mapStateToProps, {
   setCurrentPage,
   getUsersThunk,
   switchFollowThunk,
-})(UsersContainer);
+})(withAuthRedirect(UsersContainer));
