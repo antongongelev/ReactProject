@@ -7,14 +7,14 @@ let initialState = {
     { id: "2", name: "Elena" },
     { id: "3", name: "Pufic" },
     { id: "4", name: "Sasha" },
-    { id: "5", name: "Kirill" }
+    { id: "5", name: "Kirill" },
   ],
   messages: [
     { id: 0, msg: "Hi" },
     { id: 1, msg: "Hello!" },
-    { id: 2, msg: "YO" }
+    { id: 2, msg: "YO" },
   ],
-  newMessageBody: ""
+  newMessageBody: "",
 };
 
 const dialogsReducer = (state = initialState, action) => {
@@ -26,7 +26,7 @@ const dialogsReducer = (state = initialState, action) => {
       return {
         ...state,
         newMessageBody: "",
-        messages: [...state.messages, newMessage]
+        messages: [...state.messages, newMessage],
       };
     default:
       return state;
@@ -34,9 +34,9 @@ const dialogsReducer = (state = initialState, action) => {
 };
 
 export const sendMessage = () => ({ type: SEND_MESSAGE });
-export const updateNewMessageBody = body => ({
+export const updateNewMessageBody = (body) => ({
   type: UPDATE_NEW_MESSAGE_BODY,
-  body: body
+  body: body,
 });
 
 export default dialogsReducer;

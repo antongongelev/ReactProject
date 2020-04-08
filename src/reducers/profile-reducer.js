@@ -1,9 +1,10 @@
-import { getProfile } from "../rest-client";
+import { getProfile, getStatus, updateStatus } from "../rest-client";
 
 const SWITCH_IS_LOADING = "SWITCH_IS_LOADING";
 const UPDATE_NEW_POST_MESSAGE = "UPDATE_NEW_POST_MESSAGE";
 const CREATE_NEW_POST = "CREATE_NEW_POST";
 const SET_PROFILE = "SET_PROFILE";
+const SET_STATUS = "SET_STATUS";
 
 let initialState = {
   profile: {
@@ -40,6 +41,8 @@ let initialState = {
     },
   ],
   newPostMessage: "",
+  status: "",
+  userId: null,
   isLoading: false,
 };
 
@@ -55,20 +58,29 @@ const profileReducer = (state = initialState, action) => {
         posts: [...state.posts, newPost],
       };
     case SET_PROFILE:
+      debugger;
       return {
         ...state,
         profile: action.profile,
+        userId: Number(action.userId),
       };
     case SWITCH_IS_LOADING:
       return {
         ...state,
         isLoading: action.isLoading,
       };
+    case SET_STATUS:
+      debugger;
+      return {
+        ...state,
+        status: action.status,
+      };
     default:
       return state;
   }
 };
 
+export const DEFAULT_STATUS = "set status";
 export const createNewPost = () => ({ type: CREATE_NEW_POST });
 export const updateNewPostMessage = (body) => ({
   type: UPDATE_NEW_POST_MESSAGE,
@@ -78,13 +90,41 @@ export const switchIsLoading = (isLoading) => ({
   type: SWITCH_IS_LOADING,
   isLoading,
 });
-export const setProfile = (profile) => ({ type: SET_PROFILE, profile });
+export const setProfile = (profile, userId) => ({
+  type: SET_PROFILE,
+  profile,
+  userId,
+});
+
 export const getProfileThunk = (userId) => {
   return (dispatch) => {
     dispatch(switchIsLoading(true));
     getProfile(userId).then((response) => {
       dispatch(switchIsLoading(false));
-      dispatch(setProfile(response.data));
+      dispatch(setProfile(response.data, userId));
+    });
+  };
+};
+export const setStatus = (status) => ({ type: SET_STATUS, status });
+
+export const getStatusThunk = (userId) => {
+  return (dispatch) => {
+    dispatch(switchIsLoading(true));
+    getStatus(userId).then((response) => {
+      dispatch(switchIsLoading(false));
+      dispatch(setStatus(response.data ? response.data : DEFAULT_STATUS));
+    });
+  };
+};
+
+export const updateStatusThunk = (status) => {
+  return (dispatch) => {
+    dispatch(switchIsLoading(true));
+    updateStatus(status).then((response) => {
+      dispatch(switchIsLoading(false));
+      if (response.data.resultCode === 0) {
+        dispatch(setStatus(status));
+      }
     });
   };
 };

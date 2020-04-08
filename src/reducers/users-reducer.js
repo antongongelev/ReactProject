@@ -79,7 +79,6 @@ export const setFollowingInProgress = (followingInProgress, userId) => ({
 export const getUsersThunk = (page, pageSize) => {
   return (dispatch) => {
     dispatch(switchIsLoading(true));
-    console.log("you have selected page number " + page);
     getUsers(page, pageSize).then((response) => {
       dispatch(switchIsLoading(false));
       dispatch(setCurrentPage(page));

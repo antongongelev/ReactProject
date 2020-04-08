@@ -27,3 +27,11 @@ export const followUser = (userId) => {
 export const unfollowUser = (userId) => {
   return instance.delete(`follow/${userId}`);
 };
+
+export const getStatus = (userId) => {
+  return instance.get(`profile/status/${userId}`);
+};
+
+export const updateStatus = (status) => {
+  return instance.put("profile/status", { status });
+};

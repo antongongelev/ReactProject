@@ -9,6 +9,7 @@ import {
   switchFollowThunk,
 } from "../../reducers/users-reducer";
 import Paginator from "../tools/paginator/Paginator.js";
+import { compose } from "redux";
 
 class UsersContainer extends React.Component {
   setCurrentPage = (page) => {
@@ -53,8 +54,11 @@ const mapStateToProps = (state) => {
   return { usersPage: state.usersPage };
 };
 
-export default connect(mapStateToProps, {
-  setCurrentPage,
-  getUsersThunk,
-  switchFollowThunk,
-})(withAuthRedirect(UsersContainer));
+export default compose(
+  withAuthRedirect,
+  connect(mapStateToProps, {
+    setCurrentPage,
+    getUsersThunk,
+    switchFollowThunk,
+  })
+)(UsersContainer);
