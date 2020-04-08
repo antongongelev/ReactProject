@@ -12,6 +12,10 @@ export const authorise = () => {
   return instance.get("auth/me");
 };
 
+export const login = (loginData) => {
+  return instance.post("/auth/login", { ...loginData });
+};
+
 export const getUsers = (page, count) => {
   return instance.get(`users?page=${page}&count=${count}`);
 };
