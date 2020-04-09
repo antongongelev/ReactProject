@@ -4,7 +4,6 @@ import Posts from "../posts/Posts";
 import ProfileInfo from "./../profile-info/ProfileInfo";
 
 const Profile = (props) => {
-  debugger;
   return (
     <div className={s.profile}>
       <ProfileInfo
@@ -17,9 +16,7 @@ const Profile = (props) => {
       <Posts
         profile={props.profilePage.profile}
         posts={props.profilePage.posts}
-        newPostMessage={props.profilePage.newPostMessage}
         createNewPost={props.createNewPost}
-        updateNewPostMessage={props.updateNewPostMessage}
       />
     </div>
   );

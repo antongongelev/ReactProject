@@ -39,6 +39,7 @@ export const switchIsLoading = (isLoading) => ({
 });
 
 export const authoriseThunk = () => {
+  debugger;
   return (dispatch) => {
     authorise().then((response) => {
       let responseData = response.data;
@@ -59,7 +60,17 @@ export const loginThunk = (loginData) => {
     dispatch(switchIsLoading(true));
     login(loginData).then((response) => {
       if (response.data.resultCode === 0) {
-        authoriseThunk();
+        authorise().then((response) => {
+          let responseData = response.data;
+          if (responseData.resultCode === 0) {
+            dispatch(
+              setCredentials({
+                ...responseData.data,
+                isAuthenticated: true,
+              })
+            );
+          }
+        });
       }
       dispatch(switchIsLoading(false));
     });

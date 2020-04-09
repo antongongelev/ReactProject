@@ -8,10 +8,7 @@ import {
   updateStatusThunk,
 } from "../../reducers/profile-reducer";
 import { withAuthRedirect } from "../../hocs/withAuthRedirect";
-import {
-  createNewPost,
-  updateNewPostMessage,
-} from "../../reducers/profile-reducer";
+import { createNewPost } from "../../reducers/profile-reducer";
 import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
@@ -21,7 +18,6 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-    debugger;
     return <Profile {...this.props} />;
   }
 }
@@ -36,7 +32,6 @@ export default compose(
   withRouter,
   connect(mapStateToProps, {
     createNewPost,
-    updateNewPostMessage,
     getProfileThunk,
     getStatusThunk,
     updateStatusThunk,

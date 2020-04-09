@@ -1,7 +1,6 @@
 import { getProfile, getStatus, updateStatus } from "../rest-client";
 
 const SWITCH_IS_LOADING = "SWITCH_IS_LOADING";
-const UPDATE_NEW_POST_MESSAGE = "UPDATE_NEW_POST_MESSAGE";
 const CREATE_NEW_POST = "CREATE_NEW_POST";
 const SET_PROFILE = "SET_PROFILE";
 const SET_STATUS = "SET_STATUS";
@@ -40,7 +39,6 @@ let initialState = {
       likes: 2,
     },
   ],
-  newPostMessage: "",
   status: "",
   userId: null,
   isLoading: false,
@@ -48,13 +46,11 @@ let initialState = {
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_NEW_POST_MESSAGE:
-      return { ...state, newPostMessage: action.body };
     case CREATE_NEW_POST:
-      let newPost = { id: 2, msg: state.newPostMessage, likes: 0 };
+      debugger;
+      let newPost = { id: 2, msg: action.postText, likes: 0 };
       return {
         ...state,
-        newPostMessage: "",
         posts: [...state.posts, newPost],
       };
     case SET_PROFILE:
@@ -81,10 +77,9 @@ const profileReducer = (state = initialState, action) => {
 };
 
 export const DEFAULT_STATUS = "set status";
-export const createNewPost = () => ({ type: CREATE_NEW_POST });
-export const updateNewPostMessage = (body) => ({
-  type: UPDATE_NEW_POST_MESSAGE,
-  body: body,
+export const createNewPost = (postText) => ({
+  type: CREATE_NEW_POST,
+  ...postText,
 });
 export const switchIsLoading = (isLoading) => ({
   type: SWITCH_IS_LOADING,
