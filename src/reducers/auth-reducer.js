@@ -1,7 +1,9 @@
-import { authorise, login } from "../rest-client";
+import { authorise, login, logout } from "../rest-client";
+import { stopSubmit } from "redux-form";
 
 const SET_CREDENTIALS = "SET_CREDENTIALS";
 const SWITCH_IS_LOADING = "SWITCH_IS_LOADING";
+const LOGOUT = "LOGOUT";
 
 let initialState = {
   id: null,
@@ -23,6 +25,11 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isLoading: action.isLoading,
       };
+    case LOGOUT: {
+      return {
+        ...initialState,
+      };
+    }
     default:
       return state;
   }
@@ -38,10 +45,11 @@ export const switchIsLoading = (isLoading) => ({
   isLoading,
 });
 
+export const logoutSocialNetwork = () => ({ type: LOGOUT });
+
 export const authoriseThunk = () => {
-  debugger;
   return (dispatch) => {
-    authorise().then((response) => {
+    return authorise().then((response) => {
       let responseData = response.data;
       if (responseData.resultCode === 0) {
         dispatch(
@@ -60,19 +68,26 @@ export const loginThunk = (loginData) => {
     dispatch(switchIsLoading(true));
     login(loginData).then((response) => {
       if (response.data.resultCode === 0) {
-        authorise().then((response) => {
-          let responseData = response.data;
-          if (responseData.resultCode === 0) {
-            dispatch(
-              setCredentials({
-                ...responseData.data,
-                isAuthenticated: true,
-              })
-            );
-          }
-        });
+        dispatch(authoriseThunk());
+      } else {
+        let errorMessage =
+          response.data.messages.length > 0
+            ? response.data.messages[0]
+            : "Server error";
+        dispatch(stopSubmit("login", { _error: errorMessage }));
       }
       dispatch(switchIsLoading(false));
+    });
+  };
+};
+
+export const logoutThunk = () => {
+  return (dispatch) => {
+    dispatch(switchIsLoading(true));
+    logout().then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(logoutSocialNetwork());
+      }
     });
   };
 };

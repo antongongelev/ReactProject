@@ -16,6 +16,10 @@ export const login = (loginData) => {
   return instance.post("/auth/login", { ...loginData });
 };
 
+export const logout = () => {
+  return instance.delete("/auth/login");
+};
+
 export const getUsers = (page, count) => {
   return instance.get(`users?page=${page}&count=${count}`);
 };

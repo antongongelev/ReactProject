@@ -7,20 +7,37 @@ import UsersContainer from "../users/UsersContainer";
 import HeaderContainer from "../header/HeaderContainer";
 import Login from "../login/Login";
 import NavbarContainer from "../navbar/NavbarContainer";
+import { connect } from "react-redux";
+import { initialize } from "../../reducers/app-reducer";
+import Preloader from "../tools/preloader/Preloader";
 
-const Main = () => {
-  return (
-    <div className={s.wrapper}>
-      <HeaderContainer />
-      <NavbarContainer />
-      <div className={s.main}>
-        <Route render={() => <ProfileContainer />} path="/profile/:userId" />
-        <Route render={() => <DialogsContainer />} path="/dialogs" />
-        <Route render={() => <UsersContainer />} path="/users" />
-        <Route render={() => <Login />} path="/login" />
+class Main extends React.Component {
+  componentDidMount() {
+    debugger;
+    this.props.initialize();
+    debugger;
+  }
+  render() {
+    if (!this.props.appData.isInitialized) {
+      return <Preloader />;
+    }
+    return (
+      <div className={s.wrapper}>
+        <HeaderContainer />
+        <NavbarContainer />
+        <div className={s.main}>
+          <Route render={() => <ProfileContainer />} path="/profile/:userId" />
+          <Route render={() => <DialogsContainer />} path="/dialogs" />
+          <Route render={() => <UsersContainer />} path="/users" />
+          <Route render={() => <Login />} path="/login" />
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default Main;
+const mapStateToProps = (state) => ({
+  appData: state.appData,
+});
+
+export default connect(mapStateToProps, { initialize })(Main);

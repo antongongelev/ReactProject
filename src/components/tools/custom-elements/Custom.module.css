@@ -1,0 +1,13 @@
+.custom.error input,
+.custom.error textarea {
+border: 3px red solid
+}
+
+.custom.error span{
+  color: red
+}
+
+.commonError {
+  color: red;
+  border: 3px red solid
+}

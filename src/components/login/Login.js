@@ -3,8 +3,12 @@ import { connect } from "react-redux";
 import { loginThunk } from "../../reducers/auth-reducer";
 import Preloader from "../tools/preloader/Preloader";
 import LoginForm from "./LoginForm";
+import { Redirect } from "react-router-dom";
 
 const Login = (props) => {
+  if (props.authData.isAuthenticated) {
+    return <Redirect to={`/profile/${props.authData.id}`} />;
+  }
   return (
     <div>
       <h1>LOGIN</h1>

@@ -47,14 +47,12 @@ let initialState = {
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_NEW_POST:
-      debugger;
       let newPost = { id: 2, msg: action.postText, likes: 0 };
       return {
         ...state,
         posts: [...state.posts, newPost],
       };
     case SET_PROFILE:
-      debugger;
       return {
         ...state,
         profile: action.profile,
@@ -66,7 +64,6 @@ const profileReducer = (state = initialState, action) => {
         isLoading: action.isLoading,
       };
     case SET_STATUS:
-      debugger;
       return {
         ...state,
         status: action.status,
