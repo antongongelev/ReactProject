@@ -10,6 +10,7 @@ import {
 import { withAuthRedirect } from "../../hocs/withAuthRedirect";
 import { createNewPost } from "../../reducers/profile-reducer";
 import { compose } from "redux";
+import { getId } from "../../selectors/selectors";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -24,7 +25,7 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
   profilePage: state.profilePage,
-  myId: state.authData.id,
+  myId: getId(state),
 });
 
 export default compose(

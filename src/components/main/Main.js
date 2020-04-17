@@ -13,9 +13,7 @@ import Preloader from "../tools/preloader/Preloader";
 
 class Main extends React.Component {
   componentDidMount() {
-    debugger;
     this.props.initialize();
-    debugger;
   }
   render() {
     if (!this.props.appData.isInitialized) {

@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Post.module.css";
 import defaultPhoto from "../../assets/images/avatar.png";
 
-const Post = props => {
+const Post = (props) => {
   return (
     <div className={s.post}>
       <div>

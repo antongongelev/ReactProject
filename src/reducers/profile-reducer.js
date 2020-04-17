@@ -4,6 +4,7 @@ const SWITCH_IS_LOADING = "SWITCH_IS_LOADING";
 const CREATE_NEW_POST = "CREATE_NEW_POST";
 const SET_PROFILE = "SET_PROFILE";
 const SET_STATUS = "SET_STATUS";
+const DELETE_POST = "DELETE_POST";
 
 let initialState = {
   profile: {
@@ -52,6 +53,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         posts: [...state.posts, newPost],
       };
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter((p) => p.id !== action.postId),
+      };
     case SET_PROFILE:
       return {
         ...state,
@@ -76,7 +82,11 @@ const profileReducer = (state = initialState, action) => {
 export const DEFAULT_STATUS = "set status";
 export const createNewPost = (postText) => ({
   type: CREATE_NEW_POST,
-  ...postText,
+  postText,
+});
+export const deletePost = (postId) => ({
+  type: DELETE_POST,
+  postId,
 });
 export const switchIsLoading = (isLoading) => ({
   type: SWITCH_IS_LOADING,
